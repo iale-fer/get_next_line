@@ -6,7 +6,7 @@
 /*   By: ivanalefernandez <ivanalefernandez@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 19:03:41 by ivanalefern       #+#    #+#             */
-/*   Updated: 2023/04/03 17:59:12 by ivanalefern      ###   ########.fr       */
+/*   Updated: 2023/05/01 13:23:00 by ivanalefern      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,30 @@ char	*ft_calloc(size_t count, size_t size)
 	return (c);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *readed, char *buffer)
 {
-	char	*s;
-	int		i;
-	int		j;
+	char	*jointed;
+	size_t	lenght;
+	size_t	i;
+	size_t	j;
 
-	i = 0;
 	j = 0;
-	s = malloc(sizeof(char) + (ft_strlen(s1) + ft_strlen(s2)));
-	if (!s)
+	i = ft_strlen(readed);
+	lenght = ft_strlen(buffer) + ft_strlen(readed) + 1;
+	jointed = ft_calloc(lenght, 1);
+	if (jointed == NULL)
 		return (NULL);
-	while (s1[i] != '\0')
+	while (readed[j] != '\0')
 	{
-		s[i] = s1[i];
-		i++;
-	}
-	while (s2[j] != '\0')
-	{
-		s[i + j] = s2[j];
+		jointed[j] = readed[j];
 		j++;
 	}
-	s[i + j] = '\0';
-	return (s);
+	i = 0;
+	while (buffer[i] != '\0')
+		jointed[j++] = buffer[i++];
+	jointed[j] = '\0';
+	free(readed);
+	return (jointed);
 }
 
 char	*ft_strchr(const char *s, int c)

@@ -6,7 +6,19 @@
 /*   By: ivanalefernandez <ivanalefernandez@stud    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 19:03:07 by ivanalefern       #+#    #+#             */
-/*   Updated: 2023/04/24 12:45:03 by ivanalefern      ###   ########.fr       */
+/*   Updated: 2023/05/01 13:58:00 by ivanalefern      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Jroldan- <jroldan-@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/27 12:47:05 by jroldan-          #+#    #+#             */
+/*   Updated: 2023/02/09 18:46:11 by Jroldan-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +26,27 @@
 
 char	*clean_reader(char *readed)
 {
-	int i;
-	int x;
-	int *tmp;
+	int		i;
+	int		j;
+	char	*tmp;
 
 	i = 0;
-	while(readed[i] != '\n')
-	{
+	while (readed[i] && readed[i] != '\n')
 		i++;
-	}
-	if(!readed[i])
+	if (!readed[i])
 	{
 		free(readed);
-		return(NULL);
+		return (NULL);
 	}
+	tmp = ft_calloc((ft_strlen(readed) - i + 1), sizeof(char));
+	if (!tmp)
+		return (NULL);
+	i++;
+	j = 0;
+	while (readed[i])
+		tmp[j++] = readed[i++];
+	free(readed);
+	return (tmp);
 }
 
 static char	*cpy_line(char *readed)
